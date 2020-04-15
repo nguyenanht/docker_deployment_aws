@@ -1,0 +1,10 @@
+language: generic
+sudo: required # We give admin right
+services: # We indicate to travis to install a copy of docker in our running container
+  - docker
+
+before_install: # Commands to be executed before our test are run
+  - docker build -t nguyenanht/docker_deployment_aws -f Dockerfile.dev . # By convention, we use the tag  of our repo
+
+script: # Every commands needed to run the test
+  - docker run -e CI=true nguyenanht/docker_deployment_aws npm run test # CI=true
